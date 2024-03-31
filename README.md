@@ -41,7 +41,8 @@ Procedure 
      
 
     The image below shows each of the above mentioned steps:
-![]()
+    
+![](https://github.com/rohitralhan/hypershift-hosted-cluster-acm/blob/main/images/ACM/output.gif)
 
 # 4. Scaling Hosted Cluster
 In this section we will take a look at the options available for scaling the hosted clusters manually and automatically.
@@ -56,21 +57,29 @@ In this section we will take a look at the options available for scaling the hos
 7. Click the `Update` button to initiate the scaling process
 
 The image below shows each of the above mentioned steps:
-![]()
+
+![](https://github.com/rohitralhan/hypershift-hosted-cluster-acm/blob/main/images/Scaling/manual/output.gif)
 
 ### 4.2 Auto Scaling Procedure
 1. Login to the `hub cluster` using the oc CLI tool
 2. Run the following command to list the available nodepools
-   ``` oc get nodepool -n clusters --kubeconfig kubeconfig```
+
+```
+oc get nodepool -n clusters --kubeconfig kubeconfig
+```
+
+![](https://github.com/rohitralhan/hypershift-hosted-cluster-acm/blob/main/images/nodepool.png)
 3. From the list of node pools get the nodepool you want to set autoscaling on and run the following command after updating the nodepool name:
-    ```oc edit nodepool <<nodepool name>> --kubeconfig -n clusters <<kubeconfig if not logged in with user name and password>>```
+```
+oc edit nodepool <<nodepool name>> --kubeconfig -n clusters <<kubeconfig if not logged in with user name and password>>
+```
 4. The above command will bring up the noodpool definition for editing, under the spec section replace the `replicas:` section with the section below setting the min and max to the desired values for your cluster:
 ```yml
    autoScaling:     
          max: 4
          min: 2
 ```
-![]()
+![](https://github.com/rohitralhan/hypershift-hosted-cluster-acm/blob/main/images/Scaling/autoScaling.png)
 
 5. Save and exit, this will automatically enable auto scaling and scale the cluster to the desired `min` state and have it ready for the `max` desired state.
 6. To validate this login to the `Red Hat OpenShift Console` click on `All Clusters` at the top and it will bring you to the `Infrastructure → Clusters` page where all the clusters managed by ACM are listed.
